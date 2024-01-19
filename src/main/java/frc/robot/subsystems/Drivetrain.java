@@ -109,11 +109,13 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // odometry.update(new Rotation2d(gyro.getYaw()), frontLeft.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, frontRight.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
+    odometry.update(new Rotation2d(gyro.getYaw()), frontLeft.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, frontRight.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
   
-    // SmartDashboard.putNumber("Front Left Encoder", frontLeft.getSelectedSensorPosition());
-    // SmartDashboard.putNumber("Front Right Encoder", frontRight.getSelectedSensorPosition());
-    // SmartDashboard.updateValues();
+    SmartDashboard.putNumber("Front Left Encoder", frontLeft.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Front Right Encoder", frontRight.getSelectedSensorPosition());
+    SmartDashboard.updateValues();
+
+    //hi
     
   }
 }
