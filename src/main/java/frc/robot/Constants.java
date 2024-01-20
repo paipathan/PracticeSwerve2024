@@ -27,6 +27,8 @@ public final class Constants {
     public static final int MOTOR_L2_ID = 15;
     public static final int MOTOR_R1_ID = 4;
     public static final int MOTOR_R2_ID = 10;
+    public static final int SHOOTER_1_ID = 0;
+    public static final int SHOOTER_2_ID = 0;
     public static final int XBOX_DRIVE_CONTROLLER_PORT = 0;
     public static final int GYRO_PIGEON = 12;
     public static final double WHEEL_CIRCUM = 0.48;

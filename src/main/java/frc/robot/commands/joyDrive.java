@@ -24,6 +24,7 @@ public class joyDrive extends Command {
     this.controller = controller;
   }
 
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -34,7 +35,25 @@ public class joyDrive extends Command {
   @Override
   public void execute() {
     drivetrain.move(controller.getLeftY(), controller.getRightX());
+    shootNote();
+    intakeNote();
   }
+
+  public void shootNote() {
+    if(controller.getAButton()) {
+      drivetrain.shooter1.set(0.5);
+      drivetrain.shooter2.set(0.5);
+    }
+  }
+
+  public void intakeNote() {
+    if(controller.getBButton()) {
+      drivetrain.shooter1.set(-0.5);
+      drivetrain.shooter2.set(-0.5);
+    }
+  }
+
+
 
 
 

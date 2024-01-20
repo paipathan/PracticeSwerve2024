@@ -31,7 +31,7 @@ import frc.robot.Constants;
 public class Drivetrain extends SubsystemBase {
   private final AHRS gyro;
 
-  private final WPI_TalonSRX frontLeft, backLeft, frontRight, backRight;
+  public final WPI_TalonSRX frontLeft, backLeft, frontRight, backRight, shooter1, shooter2;
   private final MotorControllerGroup leftMotors, rightMotors;
 
   public final DifferentialDrive ddrive;
@@ -48,7 +48,9 @@ public class Drivetrain extends SubsystemBase {
     backLeft = new WPI_TalonSRX(Constants.MOTOR_L2_ID);
     frontRight = new WPI_TalonSRX(Constants.MOTOR_R1_ID);
     backRight = new WPI_TalonSRX(Constants.MOTOR_R2_ID);
-    // odometry = new DifferentialDriveOdometry(new Rotation2d(gyro.getYaw()), frontLeft.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, frontRight.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
+    shooter1 = new WPI_TalonSRX(Constants.SHOOTER_1_ID);
+    shooter2 = new WPI_TalonSRX(Constants.SHOOTER_2_ID);
+    odometry = new DifferentialDriveOdometry(new Rotation2d(gyro.getYaw()), frontLeft.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, frontRight.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
 
     backLeft.follow(frontLeft);
     backRight.follow(frontRight);
@@ -72,6 +74,8 @@ public class Drivetrain extends SubsystemBase {
   public void move (double power, double offset){
     ddrive.arcadeDrive(power,offset);
   }
+
+  
 
   public Pose2d getPose() {
     return odometry.getPoseMeters();
@@ -111,8 +115,8 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     odometry.update(new Rotation2d(gyro.getYaw()), frontLeft.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, frontRight.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
   
-    SmartDashboard.putNumber("Front Left Encoder", frontLeft.getSelectedSensorPosition());
-    SmartDashboard.putNumber("Front Right Encoder", frontRight.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Front Left Encoder", frontLeft.getSelectedSensorPosition(1));
+    // SmartDashboard.putNumber("Front Right Encoder", frontRight.getSelectedSensorPosition());
     SmartDashboard.updateValues();
 
     //hi
