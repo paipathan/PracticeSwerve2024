@@ -31,7 +31,7 @@ import frc.robot.Constants;
 public class Drivetrain extends SubsystemBase {
   private final AHRS gyro;
 
-  public final WPI_TalonSRX frontLeft, backLeft, frontRight, backRight, shooter1, shooter2;
+  public final WPI_TalonSRX shooter1, shooter2, frontLeft, backLeft, frontRight, backRight;
   private final MotorControllerGroup leftMotors, rightMotors;
 
   public final DifferentialDrive ddrive;
@@ -41,23 +41,28 @@ public class Drivetrain extends SubsystemBase {
   private Pose2d lastPose;
   private double lastTime;
 
+  public double leftEncoderPosition;
+  public double rightEncoderPosition;
+
   public Drivetrain() {
     gyro = new AHRS(SerialPort.Port.kUSB);
 
     frontLeft = new WPI_TalonSRX(Constants.MOTOR_L1_ID);
     backLeft = new WPI_TalonSRX(Constants.MOTOR_L2_ID);
     frontRight = new WPI_TalonSRX(Constants.MOTOR_R1_ID);
-    backRight = new WPI_TalonSRX(Constants.MOTOR_R2_ID);
+    backRight = new WPI_TalonSRX(Constants.MOTOR_R2_ID); 
+
+
     shooter1 = new WPI_TalonSRX(Constants.SHOOTER_1_ID);
     shooter2 = new WPI_TalonSRX(Constants.SHOOTER_2_ID);
-    odometry = new DifferentialDriveOdometry(new Rotation2d(gyro.getYaw()), frontLeft.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, frontRight.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
+    
+    odometry = new DifferentialDriveOdometry(new Rotation2d(gyro.getYaw()), leftEncoderPosition / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, rightEncoderPosition / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
 
-    backLeft.follow(frontLeft);
-    backRight.follow(frontRight);
+
 
     leftMotors = new MotorControllerGroup(frontLeft, backLeft);
     leftMotors.setInverted(true);
-    rightMotors = new MotorControllerGroup(frontRight, backRight);
+    rightMotors = new MotorControllerGroup(frontRight, backRight); 
 
     ddrive = new DifferentialDrive(leftMotors, rightMotors);
     AutoBuilder.configureRamsete(
@@ -113,13 +118,15 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    odometry.update(new Rotation2d(gyro.getYaw()), frontLeft.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, frontRight.getSelectedSensorPosition() / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
-  
-    SmartDashboard.putNumber("Front Left Encoder", frontLeft.getSelectedSensorPosition(1));
-    // SmartDashboard.putNumber("Front Right Encoder", frontRight.getSelectedSensorPosition());
-    SmartDashboard.updateValues();
-
-    //hi
     
+    leftEncoderPosition = frontLeft.getSelectedSensorPosition()/2;
+    rightEncoderPosition = -frontRight.getSelectedSensorPosition();
+
+    odometry.update(new Rotation2d(gyro.getYaw()), leftEncoderPosition / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM, rightEncoderPosition / Constants.REVOLUTON_TICKS * Constants.WHEEL_CIRCUM);
+  
+    SmartDashboard.putNumber("Front Left Encoder", leftEncoderPosition);
+    SmartDashboard.putNumber("Front Right Encoder", rightEncoderPosition);
+    SmartDashboard.updateValues();
+ 
   }
 }

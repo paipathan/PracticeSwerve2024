@@ -7,6 +7,8 @@ package frc.robot.commands;
 import java.lang.annotation.Target;
 import java.util.Date;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
@@ -35,21 +37,29 @@ public class joyDrive extends Command {
   @Override
   public void execute() {
     drivetrain.move(controller.getLeftY(), controller.getRightX());
+    resetEncoderPosition();
     shootNote();
     intakeNote();
   }
 
   public void shootNote() {
-    if(controller.getAButton()) {
-      drivetrain.shooter1.set(0.5);
-      drivetrain.shooter2.set(0.5);
+    if(controller.getXButton()) {
+      drivetrain.shooter1.set(ControlMode.PercentOutput, 1);
+      drivetrain.shooter2.set(ControlMode.PercentOutput, 1);
     }
   }
 
   public void intakeNote() {
     if(controller.getBButton()) {
-      drivetrain.shooter1.set(-0.5);
-      drivetrain.shooter2.set(-0.5);
+      drivetrain.shooter1.set(ControlMode.PercentOutput, -1);
+      drivetrain.shooter2.set(ControlMode.PercentOutput, -1);
+    }
+  }
+
+  public void resetEncoderPosition() {
+    if (controller.getAButton()) {
+    drivetrain.frontLeft.setSelectedSensorPosition(0);
+    drivetrain.frontRight.setSelectedSensorPosition(0);
     }
   }
 

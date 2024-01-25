@@ -21,16 +21,15 @@ public class RobotContainer {
 
   public RobotContainer() {
     controller = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
-
     drivetrain = new Drivetrain();
     joyDrive = new joyDrive(drivetrain, controller);
   }
 
   public Command getAutoCommand() {
-    PathPlannerPath path = PathPlannerPath.fromPathFile("PPAuto");
+    PathPlannerPath path = PathPlannerPath.fromPathFile("new auto");
     return AutoBuilder.followPathWithEvents(path);
   }
-
+  
   public Command[] getTeleCommands() {
     Command[] commands = new Command[] {
       joyDrive
