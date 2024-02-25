@@ -29,6 +29,7 @@ public class S_Module extends SubsystemBase {
   public void set(double speedMPS, double rot) {
     motorConfigs.Feedback.FeedbackRemoteSensorID = this.encoder.getDeviceID();
     motorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+    this.steerMotor.getConfigurator().apply(motorConfigs);
 
     steerMotor.setControl(new MotionMagicVoltage(rot));
     driveMotor.setVoltage(speedMPS);

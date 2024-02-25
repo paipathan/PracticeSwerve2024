@@ -23,9 +23,6 @@ public class Swerve extends SubsystemBase {
 public SwerveModule flModule, blModule,
                     frModule, brModule;
 
-
-
-
 public SwerveDriveOdometry odometry;
 public AHRS gyro;
 

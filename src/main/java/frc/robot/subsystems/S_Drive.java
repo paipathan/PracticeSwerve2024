@@ -32,13 +32,10 @@ public class S_Drive extends SubsystemBase {
 
 
     public void setStates(SwerveModuleState flState, SwerveModuleState blState, SwerveModuleState frState, SwerveModuleState brState) {
-
       frontLeftModule.set(flState.speedMetersPerSecond, flState.angle.getRotations());
       backLeftModule.set(blState.speedMetersPerSecond, blState.angle.getRotations());
       frontRightModule.set(frState.speedMetersPerSecond, frState.angle.getRotations());
       backRightModule.set(brState.speedMetersPerSecond, brState.angle.getRotations());
-
-
     }
 
   @Override
