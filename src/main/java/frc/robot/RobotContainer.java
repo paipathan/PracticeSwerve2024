@@ -4,42 +4,46 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.commands.RunIntake;
+import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.joyDrive;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Swerve;
 
 public class RobotContainer {
   private final XboxController controller;
+  //---------- Subsystems ---------//
 
-  private final Drivetrain drivetrain;
-  private final joyDrive joyDrive;
+  public Swerve swerve;
+  public Drivetrain drive;
+
+  //---------- COMMANDS -----------//
+
+  public joyDrive joyDrive; 
+  public SwerveDrive swerveDrive; 
+  public RunIntake runIntake;
 
   public RobotContainer() {
+    drive = new Drivetrain();
     controller = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
-    drivetrain = new Drivetrain();
-    joyDrive = new joyDrive(drivetrain, controller);
+    joyDrive = new joyDrive(drive, controller);
   }
 
   public Command getAutoCommand() {
-    PathPlannerPath path = PathPlannerPath.fromPathFile("new auto");
-    return AutoBuilder.followPathWithEvents(path);
+    return new PathPlannerAuto("straightauto");
   }
   
   public Command[] getTeleCommands() {
-    Command[] commands = new Command[] {
-      joyDrive
-    };
+    Command[] commands = new Command[] {swerveDrive};
 
     return commands;
-  }
-
-  public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
-    
   }
 }

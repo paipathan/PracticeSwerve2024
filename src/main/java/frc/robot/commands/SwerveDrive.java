@@ -4,43 +4,32 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix6.*;
-import com.ctre.phoenix6.hardware.TalonFX;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.S_Drive;
 import frc.robot.subsystems.Swerve;
 
+public class SwerveDrive extends Command {
 
-public class joyDrive extends Command {
-  
   public XboxController controller;
-  public Drivetrain drive;
+  public Swerve swerve;
+  public S_Drive s_drive;
 
-
-  public joyDrive(Drivetrain drive, XboxController controller) {
-    this.drive = drive;
-    this.controller = controller;
-
-    addRequirements(drive);
+  public SwerveDrive() {
+    swerve = new Swerve();
+    s_drive = new S_Drive();
+    controller = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
   }
 
   @Override
-  public void initialize() {
-    
-  }
-
+  public void initialize() {}
 
   @Override
   public void execute() {
-    drive.move(-controller.getLeftY(), controller.getRightX());
+    swerve.driveWithJoystick(controller);
+    // s_drive.drive(controller);
   }
-
 
   @Override
   public void end(boolean interrupted) {}

@@ -31,27 +31,42 @@ public final class Constants {
     public static final int MOTOR_R1_ID = 4;
     public static final int MOTOR_R2_ID = 10; /// KITBOT CONSTANTS
 
-    // public static final int MOTOR_L1_ID = 3;
-    // public static final int MOTOR_L2_ID = ;
-    // public static final int MOTOR_R1_ID = 2;
-    // public static final int MOTOR_R2_ID = ; ELEVATOR CONSTANTS
+    // public static final int MOTOR_L1_ID = 3; // front left
+    // public static final int MOTOR_L2_ID = 5; // back left
+    // public static final int MOTOR_R1_ID = 2; // front right
+    // public static final int MOTOR_R2_ID = 7; // back right ELEVATOR CONSTANTS
+
+
+
+    public static final int MAX_VELOCITY = 3;
 
 
     public static final int SHOOTER_1_ID = 3;
     public static final int SHOOTER_2_ID = 5;
+
+    public static int revID = 6;
+    public static int intakeID = 5;
+    public static int slider = 4;
+
+    public static final int JOYSTICK_PORT = 0;
     public static final int XBOX_DRIVE_CONTROLLER_PORT = 0;
     public static final int GYRO_PIGEON = 12;
     public static final double WHEEL_CIRCUM = 0.31;
     public static final int REVOLUTON_TICKS = 5046;
 
-    // Encoders
     public static final double cpr = 4096; //Counts Per Revolution
     public static final double whd = 6; //Wheel Radius needs to be measured
-    //ID these encoders
+    public static final double TRACK_WIDTH = 0.57;
+    private static final double WHEEL_BASE = 0.5; 
+    public static final int BANNER_MOTOR_TEST = 9;
+    public static final int BANNER_SENSOR_PORT = 1;
 
-    //Gyro
     public static final boolean invertGyro = false;
 
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;
+
+    public static final int INTAKE_MOTOR_ID = 44; // on the real robot
+
+
 
 }
