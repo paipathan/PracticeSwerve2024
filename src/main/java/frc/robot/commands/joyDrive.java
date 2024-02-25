@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -20,10 +21,12 @@ import frc.robot.subsystems.Drivetrain;
 public class joyDrive extends Command {
   private final Drivetrain drivetrain;
   private XboxController controller;
-  
+  private final Timer m_timer = new Timer();
+  private boolean timerShoot = false;
   public joyDrive(Drivetrain drivetrain, XboxController controller) {
     this.drivetrain = drivetrain;
     this.controller = controller;
+
   }
 
 
@@ -36,25 +39,77 @@ public class joyDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(controller.getLeftY(), controller.getRightX());
+    drivetrain.move(-controller.getLeftY(), controller.getRightX());
     resetEncoderPosition();
-    shootNote();
-    intakeNote();
+    
+
+if (controller.getLeftTriggerAxis() > 0.05) {
+    drivetrain.shooter1.set(ControlMode.PercentOutput, -0.5);
+      drivetrain.shooter2.set(ControlMode.PercentOutput, -0.5);
+}
+else {
+if (controller.getRightTriggerAxis() > 0.05) {
+  drivetrain.shooter1.set(ControlMode.PercentOutput, controller.getRightTriggerAxis());
+    drivetrain.shooter2.set(ControlMode.PercentOutput, controller.getRightTriggerAxis());
+
+}
+else {
+    drivetrain.shooter1.set(ControlMode.PercentOutput, 0);
+  drivetrain.shooter2.set(ControlMode.PercentOutput, 0);
+
+}
+
+}
+   
+    if (controller.getRightBumper()) {
+      timerShoot = false;
+      drivetrain.shooter1.set(ControlMode.PercentOutput, 0);
+      drivetrain.shooter2.set(ControlMode.PercentOutput, 0);
+    }
+
   }
 
-  public void shootNote() {
-    if(controller.getXButton()) {
+  public void shootNote1() {
+    if(controller.getYButton()) {
       drivetrain.shooter1.set(ControlMode.PercentOutput, 1);
+    }
+    else {
+            drivetrain.shooter1.set(ControlMode.PercentOutput, 0);
+
+    }
+  }
+
+  public void intakeNote1() {
+    if(controller.getXButton()) {
+      drivetrain.shooter1.set(ControlMode.PercentOutput, -0.5);
+    }
+    else {
+            drivetrain.shooter1.set(ControlMode.PercentOutput, 0);
+
+    }
+  }
+
+   public void shootNote2() {
+    if(controller.getBButton()) {
       drivetrain.shooter2.set(ControlMode.PercentOutput, 1);
     }
-  }
+    else {
+            drivetrain.shooter2.set(ControlMode.PercentOutput, 0);
 
-  public void intakeNote() {
-    if(controller.getBButton()) {
-      drivetrain.shooter1.set(ControlMode.PercentOutput, -1);
-      drivetrain.shooter2.set(ControlMode.PercentOutput, -1);
     }
   }
+
+  public void intakeNote2() {
+    if(controller.getAButton()) {
+      drivetrain.shooter2.set(ControlMode.PercentOutput, -0.5);
+    }
+    else {
+            drivetrain.shooter2.set(ControlMode.PercentOutput, 0);
+
+    }
+  }
+
+
 
   public void resetEncoderPosition() {
     if (controller.getAButton()) {
