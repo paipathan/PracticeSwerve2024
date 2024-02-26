@@ -31,8 +31,8 @@ public class S_Module extends SubsystemBase {
     motorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
     this.steerMotor.getConfigurator().apply(motorConfigs);
 
-    steerMotor.setControl(new MotionMagicVoltage(rot));
     driveMotor.setVoltage(speedMPS);
+    steerMotor.setControl(new MotionMagicVoltage(rot));
   }
 
   @Override

@@ -4,26 +4,16 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.joyDrive;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Swerve;
 
 public class RobotContainer {
-  private final XboxController controller;
-  //---------- Subsystems ---------//
 
-  public Swerve swerve;
-  public Drivetrain drive;
+
 
   //---------- COMMANDS -----------//
 
@@ -31,17 +21,19 @@ public class RobotContainer {
   public SwerveDrive swerveDrive; 
   public RunIntake runIntake;
 
-  public RobotContainer() {
-    drive = new Drivetrain();
-    controller = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
-    joyDrive = new joyDrive(drive, controller);
+  //-------------------------------//
+
+  public RobotContainer() { // initialize commands
+    joyDrive = new joyDrive();
+    swerveDrive = new SwerveDrive();
+    runIntake = new RunIntake();
   }
 
   public Command getAutoCommand() {
     return new PathPlannerAuto("straightauto");
   }
   
-  public Command[] getTeleCommands() {
+  public Command[] getTeleCommands() { // call commands we want to run
     Command[] commands = new Command[] {swerveDrive};
 
     return commands;

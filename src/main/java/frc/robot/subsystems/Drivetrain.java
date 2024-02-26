@@ -80,7 +80,6 @@ public class Drivetrain extends SubsystemBase {
     ddrive.arcadeDrive(power,offset);
   }
 
-  
 
   public Pose2d getPose() {
     return odometry.getPoseMeters();

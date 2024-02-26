@@ -83,7 +83,7 @@ public AHRS gyro;
         blModule.getSteerMotor().setControl(new MotionMagicVoltage(backLeft.angle.getRotations()));
         blModule.getDriveMotor().setVoltage(backLeft.speedMetersPerSecond);                                                                                                                                                     
 
-        frModule.getSteerMotor().setControl(new MotionMagicVoltage(frontLeft.angle.getRotations()));
+        frModule.getSteerMotor().setControl(new MotionMagicVoltage(frontRight.angle.getRotations()));
         frModule.getDriveMotor().setVoltage(frontRight.speedMetersPerSecond);                              
 
         brModule.getSteerMotor().setControl(new MotionMagicVoltage(backRight.angle.getRotations()));
@@ -111,22 +111,19 @@ public AHRS gyro;
     };
 }
 
-  public void logCAN()
-  {
+  public void logCAN() {
 
-    SmartDashboard.putNumber("fl mod angle", flModule.getSteerMotor().getPosition().getValueAsDouble());
-    SmartDashboard.putNumber("bl mod angle", blModule.getSteerMotor().getPosition().getValueAsDouble());
-    SmartDashboard.putNumber("fr mod angle", frModule.getSteerMotor().getPosition().getValueAsDouble());
-    SmartDashboard.putNumber("br mod angle", brModule.getSteerMotor().getPosition().getValueAsDouble());
+    SmartDashboard.putNumber("fl angle", flModule.getSteerMotor().getPosition().getValueAsDouble());
+    SmartDashboard.putNumber("fl dist", flModule.getDriveMotor().getPosition().getValueAsDouble());
 
+    SmartDashboard.putNumber("bl angle", blModule.getSteerMotor().getPosition().getValueAsDouble());
+    SmartDashboard.putNumber("bl dist", blModule.getDriveMotor().getPosition().getValueAsDouble());
 
+    SmartDashboard.putNumber("fr angle", frModule.getSteerMotor().getPosition().getValueAsDouble());
+    SmartDashboard.putNumber("fr dist", frModule.getDriveMotor().getPosition().getValueAsDouble());
 
-    SmartDashboard.putNumber("fl mod dist", flModule.getPosition(true).distanceMeters);
-    SmartDashboard.putNumber("bl mod dist", blModule.getPosition(true).distanceMeters);
-    SmartDashboard.putNumber("fr mod dist", frModule.getPosition(true).distanceMeters);
-    SmartDashboard.putNumber("br mod dist", brModule.getPosition(true).distanceMeters);
-    
-    
+    SmartDashboard.putNumber("br angle", brModule.getSteerMotor().getPosition().getValueAsDouble());
+    SmartDashboard.putNumber("br dist", brModule.getDriveMotor().getPosition().getValueAsDouble());
 
   }
   

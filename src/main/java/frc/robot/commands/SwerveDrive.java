@@ -12,9 +12,9 @@ import frc.robot.subsystems.Swerve;
 
 public class SwerveDrive extends Command {
 
-  public XboxController controller;
   public Swerve swerve;
   public S_Drive s_drive;
+  public XboxController controller;
 
   public SwerveDrive() {
     swerve = new Swerve();
@@ -27,8 +27,8 @@ public class SwerveDrive extends Command {
 
   @Override
   public void execute() {
-    swerve.driveWithJoystick(controller);
-    // s_drive.drive(controller);
+    swerve.driveWithJoystick(controller); // WPILIB swerve mods 
+    // s_drive.drive(controller); // custom swerve mods
   }
 
   @Override
