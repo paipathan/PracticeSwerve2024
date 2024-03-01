@@ -31,7 +31,7 @@ public class Intake extends SubsystemBase {
       double power = (controller.getYButton()) ? -1 : 0;
       intake.set(ControlMode.PercentOutput, power);  
     }
-
+    
     SmartDashboard.putBoolean("Using Banner?", usingBanner);
     SmartDashboard.putBoolean("Banner Triggered?", banner.get());
     SmartDashboard.putNumber("Motor Output %", intake.getMotorOutputPercent());

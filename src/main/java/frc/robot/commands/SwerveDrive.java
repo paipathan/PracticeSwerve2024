@@ -27,8 +27,8 @@ public class SwerveDrive extends Command {
 
   @Override
   public void execute() {
-    swerve.driveWithJoystick(controller); // WPILIB swerve mods 
-    // s_drive.drive(controller); // custom swerve mods
+    // swerve.driveWithJoystick(controller); // WPILIB swerve mods 
+    s_drive.drive(); // custom swerve mods
   }
 
   @Override

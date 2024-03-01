@@ -27,25 +27,21 @@ public SwerveDriveOdometry odometry;
 public AHRS gyro;
 
 
-  public Swerve() 
-  {
+  public Swerve() {
     gyro = new AHRS(SerialPort.Port.kUSB);
 
-  
     flModule = new SwerveModule(SwerveConstants.flConst, ""); 
     blModule = new SwerveModule(SwerveConstants.blConst, "");   
     frModule = new SwerveModule(SwerveConstants.frConst, "");
     brModule = new SwerveModule(SwerveConstants.brConst, "");
 
     this.odometry = new SwerveDriveOdometry(SwerveConstants.s_kinematics, gyro.getRotation2d(), getSwerveModulePositions(), new Pose2d());
-    
   }
 
 
-  public void driveWithJoystick(XboxController controller) 
-  {
+  public void driveWithJoystick(XboxController controller) {
         
-        double ySpeed = -MathUtil.applyDeadband(controller.getLeftY(), 0.1); 
+        double ySpeed = MathUtil.applyDeadband(-controller.getLeftY(), 0.1); 
         double xSpeed = MathUtil.applyDeadband(controller.getLeftX(), 0.1);
         double rotation = MathUtil.applyDeadband(controller.getRightX(), 0.1); 
 
@@ -61,33 +57,46 @@ public AHRS gyro;
                                     SwerveModuleState frontRight, SwerveModuleState backRight) 
   {
 
-        SwerveConstants.flMotorConfigs.Feedback.FeedbackRemoteSensorID = flModule.getCANcoder().getDeviceID();
-        SwerveConstants.flMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-        flModule.getSteerMotor().getConfigurator().apply(SwerveConstants.flMotorConfigs);
+        // SwerveConstants.flMotorConfigs.Feedback.FeedbackRemoteSensorID = flModule.getCANcoder().getDeviceID();
+        // SwerveConstants.flMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+        // flModule.getSteerMotor().getConfigurator().apply(SwerveConstants.flMotorConfigs);
 
-        SwerveConstants.blMotorConfigs.Feedback.FeedbackRemoteSensorID = blModule.getCANcoder().getDeviceID();
-        SwerveConstants.blMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-        blModule.getSteerMotor().getConfigurator().apply(SwerveConstants.blMotorConfigs);
+        // SwerveConstants.blMotorConfigs.Feedback.FeedbackRemoteSensorID = blModule.getCANcoder().getDeviceID();
+        // SwerveConstants.blMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+        // blModule.getSteerMotor().getConfigurator().apply(SwerveConstants.blMotorConfigs);
 
-        SwerveConstants.frMotorConfigs.Feedback.FeedbackRemoteSensorID = frModule.getCANcoder().getDeviceID();
-        SwerveConstants.frMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-        frModule.getSteerMotor().getConfigurator().apply(SwerveConstants.frMotorConfigs);
+        // SwerveConstants.frMotorConfigs.Feedback.FeedbackRemoteSensorID = frModule.getCANcoder().getDeviceID();
+        // SwerveConstants.frMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+        // frModule.getSteerMotor().getConfigurator().apply(SwerveConstants.frMotorConfigs);
 
-        SwerveConstants.brMotorConfigs.Feedback.FeedbackRemoteSensorID = brModule.getCANcoder().getDeviceID();
-        SwerveConstants.brMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-        brModule.getSteerMotor().getConfigurator().apply(SwerveConstants.brMotorConfigs);
+        // SwerveConstants.brMotorConfigs.Feedback.FeedbackRemoteSensorID = brModule.getCANcoder().getDeviceID();
+        // SwerveConstants.brMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+        // brModule.getSteerMotor().getConfigurator().apply(SwerveConstants.brMotorConfigs);
 
-        flModule.getSteerMotor().setControl(new MotionMagicVoltage(frontLeft.angle.getRotations()));
-        flModule.getDriveMotor().setVoltage(frontLeft.speedMetersPerSecond);
+        // flModule.getSteerMotor().setControl(new MotionMagicVoltage(frontLeft.angle.getRotations()));
+        // flModule.getDriveMotor().setVoltage(frontLeft.speedMetersPerSecond);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-        blModule.getSteerMotor().setControl(new MotionMagicVoltage(backLeft.angle.getRotations()));
-        blModule.getDriveMotor().setVoltage(backLeft.speedMetersPerSecond);                                                                                                                                                     
+        // blModule.getSteerMotor().setControl(new MotionMagicVoltage(backLeft.angle.getRotations()));
+        // blModule.getDriveMotor().setVoltage(backLeft.speedMetersPerSecond);                                                                                                                                                     
 
-        frModule.getSteerMotor().setControl(new MotionMagicVoltage(frontRight.angle.getRotations()));
-        frModule.getDriveMotor().setVoltage(frontRight.speedMetersPerSecond);                              
+        // frModule.getSteerMotor().setControl(new MotionMagicVoltage(frontRight.angle.getRotations()));
+        // frModule.getDriveMotor().setVoltage(frontRight.speedMetersPerSecond);                              
 
-        brModule.getSteerMotor().setControl(new MotionMagicVoltage(backRight.angle.getRotations()));
-        brModule.getDriveMotor().setVoltage(backRight.speedMetersPerSecond);
+        // brModule.getSteerMotor().setControl(new MotionMagicVoltage(backRight.angle.getRotations()));
+        // brModule.getDriveMotor().setVoltage(backRight.speedMetersPerSecond);
+
+
+        // flModule.getSteerMotor().setVoltage(frontLeft.angle.getRadians());
+        // flModule.getDriveMotor().setVoltage(frontLeft.speedMetersPerSecond);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        // blModule.getSteerMotor().setVoltage(backLeft.angle.getRadians());
+        // blModule.getDriveMotor().setVoltage(backLeft.speedMetersPerSecond);                                                                                                                                                     
+
+        // frModule.getSteerMotor().setVoltage(frontRight.angle.getRadians());
+        // frModule.getDriveMotor().setVoltage(frontRight.speedMetersPerSecond);                              
+
+        // brModule.getSteerMotor().setVoltage(backRight.angle.getRadians());
+        // brModule.getDriveMotor().setVoltage(backRight.speedMetersPerSecond);
 
   }
 

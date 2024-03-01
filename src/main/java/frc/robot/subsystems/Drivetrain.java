@@ -4,10 +4,8 @@
 
 package frc.robot.subsystems;
 
-import java.sql.Driver;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -72,7 +70,7 @@ public class Drivetrain extends SubsystemBase {
     rightMotors.setInverted(true);
 
     ddrive = new DifferentialDrive(leftMotors, rightMotors);
-    AutoBuilder.configureRamsete( this::getPose, this::resetPose, this::getSpeeds, this::setSpeeds, new ReplanningConfig(), this::flipPath, this);
+    AutoBuilder.configureRamsete(this::getPose, this::resetPose, this::getSpeeds, this::setSpeeds, new ReplanningConfig(), this::flipPath, this);
   }
 
   public void move (double power, double offset){

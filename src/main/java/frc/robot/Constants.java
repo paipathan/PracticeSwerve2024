@@ -31,6 +31,12 @@ public final class Constants {
     public static final int MOTOR_R1_ID = 4;
     public static final int MOTOR_R2_ID = 10; /// KITBOT CONSTANTS
 
+    public static final int SHOOTER_1_ID = 3;
+    public static final int SHOOTER_2_ID = 5;
+
+    public static final int ELEVATOR_MOTOR_1 = 2; 
+    public static final int ELEVATOR_MOTOR_2 = 7;
+
     // public static final int MOTOR_L1_ID = 3; // front left
     // public static final int MOTOR_L2_ID = 5; // back left
     // public static final int MOTOR_R1_ID = 2; // front right
@@ -41,8 +47,9 @@ public final class Constants {
     public static final int MAX_VELOCITY = 3;
 
 
-    public static final int SHOOTER_1_ID = 3;
-    public static final int SHOOTER_2_ID = 5;
+
+
+
 
     public static int revID = 6;
     public static int intakeID = 5;
