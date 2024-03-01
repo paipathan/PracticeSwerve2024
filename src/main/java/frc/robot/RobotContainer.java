@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import java.util.spi.ResourceBundleProvider;
-
-import javax.swing.text.html.HTMLDocument.RunElement;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 

@@ -36,6 +36,8 @@ public final class Constants {
 
     public static final int ELEVATOR_MOTOR_1 = 2; 
     public static final int ELEVATOR_MOTOR_2 = 7;
+    public static final int ELEVATOR_MOTOR_3 = 0;
+    public static final int ELEVATOR_MOTOR_4 = 0;
 
     // public static final int MOTOR_L1_ID = 3; // front left
     // public static final int MOTOR_L2_ID = 5; // back left

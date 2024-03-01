@@ -21,8 +21,9 @@ public class RunClimber extends Command {
 
   @Override
   public void execute() {
-    climber.joystickClimb();
     climber.buttonClimb();
+    climber.triggerDown();
+    climber.triggerUp();
   }
 
   @Override
