@@ -8,16 +8,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.S_Drive;
-import frc.robot.subsystems.Swerve;
 
 public class SwerveDrive extends Command {
 
-  public Swerve swerve;
   public S_Drive s_drive;
   public XboxController controller;
 
   public SwerveDrive() {
-    swerve = new Swerve();
     s_drive = new S_Drive();
     controller = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
   }
@@ -27,8 +24,7 @@ public class SwerveDrive extends Command {
 
   @Override
   public void execute() {
-    // swerve.driveWithJoystick(controller); // WPILIB swerve mods 
-    s_drive.drive(); // custom swerve mods
+    s_drive.drive();
   }
 
   @Override

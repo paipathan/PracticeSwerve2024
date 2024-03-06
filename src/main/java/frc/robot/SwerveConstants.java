@@ -6,8 +6,13 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.ClosedLoopOutputType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants.SteerFeedbackType;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 public class SwerveConstants {
     
@@ -109,5 +114,21 @@ public class SwerveConstants {
     public static final TalonFXConfiguration blMotorConfigs = new TalonFXConfiguration();
     public static final TalonFXConfiguration frMotorConfigs = new TalonFXConfiguration();
     public static final TalonFXConfiguration brMotorConfigs = new TalonFXConfiguration();
+
+    public static final double TICKS_PER_ROT = 4096;
+    public static final double WHEEL_RADIUS = 0.0508;  
+    public static final double MAX_ANGULAR_VELOCITY = Math.PI;
+    public static final double MAX_ANGULAR_ACCELERATION = 2 * Math.PI;
+
+    public static final PIDController DRIVE_PID_CONTROLLER = new PIDController(1, 0, 0);
+    public static final  SimpleMotorFeedforward DRIVE_FEED_FORWARD = new SimpleMotorFeedforward(0, 0);
+
+    public static final PIDController STEER_PID_CONTROLLER = new PIDController(0.1, 0, 0);
+    public static final SimpleMotorFeedforward STEER_FEED_FORWARD = new SimpleMotorFeedforward(0, 0);
+
+    public static final double MAX_MODULE_SPEED = 3;
+
+
+
 
 }
