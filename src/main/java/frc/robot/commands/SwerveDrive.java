@@ -25,6 +25,7 @@ public class SwerveDrive extends Command {
   @Override
   public void execute() {
     s_drive.drive();
+    s_drive.resetPostion();
   }
 
   @Override

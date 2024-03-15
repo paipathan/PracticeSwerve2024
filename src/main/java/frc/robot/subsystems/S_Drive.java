@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -43,10 +44,10 @@ public class S_Drive extends SubsystemBase {
 
     public void resetPostion() {
       if(controller.getYButton()) {
-      frontLeftModule.resetSteer();
-      backLeftModule.resetSteer();
-      frontRightModule.resetSteer();
-      backRightModule.resetSteer();
+      frontLeftModule.setDesiredState(new SwerveModuleState(0, new Rotation2d(0)));
+      backLeftModule.setDesiredState(new SwerveModuleState(0, new Rotation2d(0)));
+      frontRightModule.setDesiredState(new SwerveModuleState(0, new Rotation2d(0)));
+      backRightModule.setDesiredState(new SwerveModuleState(0, new Rotation2d(0)));
       }
     }
 

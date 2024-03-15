@@ -4,20 +4,16 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.SwerveControlRequestParameters;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.SwerveConstants;
 
 public class S_Module extends SubsystemBase {
@@ -101,19 +97,19 @@ public class S_Module extends SubsystemBase {
     
   }
 
-  public void setDesiredState(SwerveModuleState desiredState) {
-    SwerveModuleState state = SwerveModuleState.optimize(desiredState, new Rotation2d((this.encoder.getAbsolutePosition().getValueAsDouble() * Math.PI/180)));
 
-    double drivePower = SwerveConstants.DRIVE_PID_CONTROLLER.calculate(this.encoder.getVelocity().getValueAsDouble()*SwerveConstants.WHEEL_RADIUS, state.speedMetersPerSecond);
+
+  public void setDesiredState(SwerveModuleState targetState) {
+    SwerveModuleState state = SwerveModuleState.optimize(targetState, new Rotation2d((this.encoder.getAbsolutePosition().getValueAsDouble() * Math.PI/180)));
+    double drivePower = SwerveConstants.DRIVE_PID_CONTROLLER.calculate(this.encoder.getVelocity().getValueAsDouble() * SwerveConstants.WHEEL_RADIUS, state.speedMetersPerSecond);
     double driveFeedforward = SwerveConstants.DRIVE_FEED_FORWARD.calculate(state.speedMetersPerSecond);
-    
     double turnPower = SwerveConstants.STEER_PID_CONTROLLER.calculate((this.encoder.getAbsolutePosition().getValueAsDouble() * Math.PI)/180, state.angle.getRadians());
     double turnFeedforward = SwerveConstants.STEER_FEED_FORWARD.calculate(SwerveConstants.STEER_PID_CONTROLLER.getSetpoint());
-
-    System.out.println(turnPower + turnFeedforward);
+    // double turnFeedforward = SwerveConstants.STEER_FEED_FORWARD.calculate(state.angle.getRotations());
 
     this.driveMotor.set(drivePower + driveFeedforward);
     this.steerMotor.set(turnPower + turnFeedforward);
+
 
     }
 
